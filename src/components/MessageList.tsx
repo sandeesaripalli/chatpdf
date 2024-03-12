@@ -3,6 +3,7 @@ import { Message } from "ai/react";
 import { Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import React from "react";
+import parse from "html-react-parser";
 
 type Props = {
   messages: Message[];
@@ -21,6 +22,8 @@ const MessageList = ({ messages, isLoading }: Props) => {
   return (
     <div className="flex flex-col gap-2 px-4">
       {messages.map((message) => {
+        // Assuming message.content is HTML
+        const parsedContent = parse(message.content);
         return (
           <div
             key={message.id}
@@ -29,20 +32,17 @@ const MessageList = ({ messages, isLoading }: Props) => {
               "justify-start pr-10": message.role === "assistant",
             })}
           >
-            {typeof message.content === "string" ? (
-              <ReactMarkdown
-                className={cn(
-                  "rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10",
-                  {
-                    "bg-blue-600 text-white": message.role === "user",
-                  }
-                )}
-              >
-                {message.content}
-              </ReactMarkdown>
-            ) : (
-              <p>{message.content}</p>
-            )}
+            <div
+              className={cn(
+                "rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10",
+                {
+                  "bg-primary text-primary-foreground text-white":
+                    message.role === "user",
+                }
+              )}
+            >
+              {parsedContent}
+            </div>
           </div>
         );
       })}

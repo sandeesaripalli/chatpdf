@@ -27,6 +27,7 @@
     "dotenv": "^16.3.1",
     "drizzle-kit": "^0.19.13",
     "drizzle-orm": "^0.28.6",
+    "html-react-parser": "^5.0.10",
     "langchain": "^0.0.155",
     "lucide-react": "^0.279.0",
     "md5": "^2.3.0",
